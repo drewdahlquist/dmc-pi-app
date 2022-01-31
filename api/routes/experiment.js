@@ -5,19 +5,16 @@ const express = require("express");
 // The router will be added as a middleware and will take control of requests starting with path /experiment.
 const experimentRoutes = express.Router();
 
-// This section will help you get a list of all the experiments.
+// This section will help you get the current experiment.
 experimentRoutes.route("/experiment").get(function (req, res) {});
 
-// This section will help you get a single experiment by id
-experimentRoutes.route("/experiment/:id").get(function (req, res) {});
+// This section will help you start a new experiment.
+experimentRoutes.route("/experiment/start").post(function (req, response) {});
 
-// This section will help you create a new experiment.
-experimentRoutes.route("/experiment/add").post(function (req, response) {});
+// This section will help you stop the current experiment.
+experimentRoutes.route("/experiment/stop").put(function (req, response) {});
 
-// This section will help you update a experiment by id.
-experimentRoutes.route("/update/:id").post(function (req, response) {});
-
-// This section will help you delete a experiment
-experimentRoutes.route("/:id").delete((req, response) => {});
+// This section will help you (single) cycle the current experiment.
+experimentRoutes.route("/experiment/cycle").put(function (req, response) {});
 
 module.exports = experimentRoutes;
