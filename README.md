@@ -3,6 +3,7 @@
 ## 1. Initial (Headless) Pi setup
 
   i. [OS installation & configuration](https://desertbot.io/blog/headless-raspberry-pi-4-ssh-wifi-setup)
+  
   ii. [Git installation](https://linuxize.com/post/how-to-install-git-on-raspberry-pi/)
 
 ## 2. CyVerse setup (optional)
