@@ -10,7 +10,17 @@ const experimentRoutes = express.Router();
 experimentRoutes.route("/experiment").get(function (req, res) {
     console.log('/experiment endpoint hit.')
 
-    console.log(req.body)
+    // console.log(req.body)
+
+    // get experiment data to machine server endpoint
+    axios.get('http://127.0.0.1:5050/experiment')
+        .then(response => {
+            console.log(`Status Code: ${response.status}`)
+            // console.log(response)
+        })
+        .catch(error => {
+            console.error(error)
+        })
 
     res.json()
 });
