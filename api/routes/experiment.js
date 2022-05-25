@@ -21,6 +21,7 @@ experimentRoutes.route("/experiment/start").post(function (req, res) {
 
     console.log(req.body)
 
+    // post experiment data to machine server endpoint
     axios.post('http://127.0.0.1:5050/experiment/start', req.body)
         .then(response => {
             console.log(`Status Code: ${response.status}`)
