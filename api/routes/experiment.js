@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 
 // experimentRoutes is an instance of the express router.
 // We use it to define our routes.
@@ -19,6 +20,15 @@ experimentRoutes.route("/experiment/start").post(function (req, res) {
     console.log('/experiment/start endpoint hit.')
 
     console.log(req.body)
+
+    axios.post('http://127.0.0.1:5050/experiment/start', req.body)
+        .then(response => {
+            console.log(`Status Code: ${response.status}`)
+            // console.log(response)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 
     res.json()
 });
