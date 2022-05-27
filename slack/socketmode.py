@@ -1,8 +1,7 @@
-import os
-import logging
-import sys
+import os, logging, sys
 
 from dotenv import dotenv_values
+import requests
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
@@ -11,11 +10,18 @@ from slack_sdk.errors import SlackApiError
 
 config = dotenv_values(".env")  # take environment variables from .env.
 
-logging.basicConfig(level=logging.INFO)  # set logging level
+logging.basicConfig(
+    filename=config["LOG_FILE"],
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=config["LOG_LEVEL"])  # set logging level
 
 app = App(token=config["XOXB"])  # get app object slash commands to work
 
-
+"""
+This section is for testing if the Slack bot is running
+"""
 @app.command('/'+config["MACHINE"]+'-hello')
 def hello(ack, body, logger):
     logger.debug(body)
@@ -23,14 +29,24 @@ def hello(ack, body, logger):
     ack(f'Hi, <@{user_id}>!')
     logger.info('Success')
 
-
+"""
+This section is for getting the machine's current status
+Hits machine's API endpoint to get status of experiment
+"""
 @app.command('/'+config["MACHINE"]+'-get-status')
 def get_status(ack, body, logger):
     logger.debug(body)
-    ack(f'Status: Running\nExperiment name : TEST EXPERIMENT')
+    # Below commented out for testing since machine API not always running
+    # r = requests.get(config["API_URL"]+'/experiment')
+    # print(r)
+    # Status will be returned in `r` object. Need to implement that value being used
+    ack(f'Status: Running\nExperiment name : TEST')
     logger.info('Success')
 
-
+"""
+This section is for getting the most recent set of pictures taken
+Doesn't use machine's API, just goes straight to file path given in .env file
+"""
 @app.command('/'+config["MACHINE"]+'-get-pics')
 def get_pics(ack, body, logger):
     logger.debug(body)
