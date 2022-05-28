@@ -38,7 +38,7 @@ experimentRoutes.route("/experiment/start").post(function (req, res) {
             // console.log(response)
         })
         .catch(error => {
-            console.log(error)
+            console.error(error)
         })
 
     res.json()
